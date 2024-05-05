@@ -1,0 +1,23 @@
+syntax = "proto3";
+option go_package="go-grpc/microservices/order";
+
+message CreateOrderRequest {
+  int64 user_id = 1;
+  repeated OrderItem items = 2;
+  float total_price = 3;
+}
+
+message OrderItem {
+  string product_code = 1;
+  int32 quantity = 2;
+  int32 unit_price = 3;
+}
+
+message CreateOrderResponse {
+  int64 order_id = 1;
+}
+
+service Order {
+  rpc Create(CreateOrderRequest)
+  returns (CreateOrderResponse) {}
+}
