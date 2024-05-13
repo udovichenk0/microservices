@@ -1,0 +1,5 @@
+DATA_SOURCE_URL="root:2j8w6d12denzeldenis@tcp(127.0.0.1:3306)/orders" go run .
+
+grpcurl -d '{"userId": 1, "totalPrice": 301, "items": [{"productCode": "3sdf324", "quantity": 32, "unitPrice": 3}]}' -plaintext localhost:3000 Order/Create
+
+grpcurl -d '{"orderId": 1, "totalPrice": 300, "userId": 22}' -plaintext localhost:3001 Payment/Create

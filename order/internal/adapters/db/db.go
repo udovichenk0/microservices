@@ -17,6 +17,10 @@ func NewDBAdapter(source string) *DBAdapter {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	if err := db.Ping(); err != nil {
+		log.Fatal(err)
+	}
 	return &DBAdapter{db}
 }
 

@@ -1,9 +1,11 @@
 package ports
 
-type Payment struct {
-	price float64
-}
+import (
+	"context"
 
-func NewPayment(price float64) Payment {
-	return Payment{price}
+	"github.com/udovichenk0/microservices/payment/internal/application/domain"
+)
+
+type PaymentPort interface {
+	Charge(ctx context.Context, payment domain.Payment) (domain.Payment, error)
 }

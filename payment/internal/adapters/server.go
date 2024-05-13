@@ -1,4 +1,4 @@
-package grpc
+package adapters
 
 import (
 	"fmt"
@@ -6,18 +6,18 @@ import (
 	"net"
 
 	order "github.com/udovichenk0/microservices/order/golang"
-	"github.com/udovichenk0/microservices/order/internal/ports"
+	"github.com/udovichenk0/microservices/payment/internal/ports"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 type Adapter struct {
-	api  ports.OrderPort
+	api  ports.PaymentPort
 	port int
-	order.UnimplementedOrderServer
+	order.UnimplementedPaymentServer
 }
 
-func NewAdapter(api ports.OrderPort, port int) *Adapter {
+func NewAdapter(api ports.PaymentPort, port int) *Adapter {
 	return &Adapter{api: api, port: port}
 }
 
@@ -28,7 +28,7 @@ func (a Adapter) Run() {
 		log.Fatalf("failed to listen on port %d, error: %v", a.port, err)
 	}
 	grpcServer := grpc.NewServer()
-	order.RegisterOrderServer(grpcServer, a)
+	order.RegisterPaymentServer(grpcServer, a)
 	// if config.GetEnv() == "development" {
 	reflection.Register(grpcServer)
 	// }

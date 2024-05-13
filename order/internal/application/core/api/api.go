@@ -1,6 +1,7 @@
 package api
 
 import (
+	"log"
 	"strings"
 
 	"github.com/udovichenk0/microservices/order/internal/application/core/domain"
@@ -20,11 +21,13 @@ func NewApplication(db ports.DBPort, payment ports.PaymentPort) *Application {
 }
 
 func (app *Application) PlaceOrder(order domain.Order) (domain.Order, error) {
-	err := app.db.Save(&order)
-	if err != nil {
-		return domain.Order{}, err
-	}
+	// err := app.db.Save(&order)
+	// if err != nil {
+	// 	return domain.Order{}, err
+	// }
+	// calling grpc stub(payment.Charge)
 	paymentErr := app.payment.Charge(&order)
+	log.Println(paymentErr)
 	if paymentErr != nil {
 		// st, _ := status.FromError(paymentErr)
 		st := status.Convert(paymentErr)

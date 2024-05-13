@@ -33,5 +33,5 @@ func getEnvironmentValue(key string) string {
 
 func GetPaymentServiceUrl() string {
 	// return getEnvironmentValue("PAYMENT_SERVICE_URL")
-	return "dasfsdf"
+	return "localhost:3001"
 }
